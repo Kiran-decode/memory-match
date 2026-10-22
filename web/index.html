@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TEDx MindStage | TEDx NITK Surathkal</title>
+  <style>
+  :root { color-scheme: dark; --red:#ef0035; --red-soft:#ff214b; --ink:#f4f4f4; --muted:#aaa; --panel:#171717; --line:#323232; --green:#37d9ab; }
+  * { box-sizing:border-box; }
+  body { margin:0; min-height:100vh; color:var(--ink); background:radial-gradient(ellipse at 88% 12%,#3d0713 0,transparent 35%),radial-gradient(ellipse at 5% 30%,#171717 0,transparent 42%),#080808; font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+  body::before { content:""; position:fixed; inset:0; z-index:-1; pointer-events:none; opacity:.2; background-image:radial-gradient(#777 0.65px,transparent .65px); background-size:6px 6px; }
+  .page { width:min(1140px,calc(100% - 56px)); margin:28px auto 44px; }
+  .topline { display:flex; align-items:center; justify-content:space-between; gap:20px; margin-bottom:32px; padding-bottom:20px; border-bottom:1px solid #333; flex-wrap:wrap; }
+  .brand { display:flex; align-items:center; gap:16px; text-decoration:none; color:inherit; min-width:0; }
+  .tedx-lockup { display:block; width:176px; max-width:36vw; flex:0 0 auto; }
+  .tedx-lockup svg { display:block; width:100%; height:auto; }
+  .brand-divider { height:48px; width:1px; background:#454545; }
+  .game-brand { display:flex; flex-direction:column; gap:3px; }
+  .game-brand strong { font-weight:950; letter-spacing:-.045em; line-height:1; font-size:clamp(1.05rem,2.1vw,1.8rem); }
+  .game-brand small { color:#aaa; font-size:.66rem; font-weight:800; letter-spacing:.18em; }
+  .top-actions { display:flex; align-items:center; gap:16px; }
+  .player { display:flex; align-items:center; gap:10px; color:#aaa; font-size:.83rem; font-weight:800; text-transform:uppercase; letter-spacing:.11em; }
+  .player input { width:170px; border:1px solid #414141; border-radius:2px; padding:11px 12px; font:inherit; font-weight:500; text-transform:none; letter-spacing:normal; background:#171717; color:#fff; outline:none; }
+  .player input:focus { border-color:var(--red); }
+  .hero { display:flex; justify-content:space-between; align-items:flex-end; gap:32px; margin:34px 0 26px; }
+  .eyebrow { margin:0 0 12px; color:var(--red); font-size:.78rem; font-weight:900; letter-spacing:.19em; }
+  .hero h1 { margin:0; font-size:clamp(3rem,7vw,5.7rem); line-height:.88; letter-spacing:-.075em; font-weight:950; }
+  .hero h1 span { display:block; color:var(--red); margin-top:7px; }
+  .hero-note { max-width:300px; margin:0 6px 6px 0; color:#b8b8b8; line-height:1.6; font-weight:550; }
+  .layout { display:block; }
+  .game-panel,.side-panel { background:#171717ed; border:1px solid #303030; border-radius:3px; box-shadow:0 18px 50px #0005; }
+  .game-panel { padding:clamp(16px,2.5vw,32px); max-width:1100px; margin:0 auto; }
+  .controls { display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; padding-bottom:18px; border-bottom:1px solid #333; }
+  .difficulty { display:flex; gap:7px; flex-wrap:wrap; }
+  button { cursor:pointer; font:inherit; transition:transform .12s ease,background .12s ease,border-color .12s ease; }
+  button:active { transform:scale(.985); }
+  .diff-btn { display:flex; align-items:center; justify-content:center; gap:8px; border:1px solid #414141; background:#151515; color:#c8c8c8; padding:11px 17px; border-radius:2px; font-size:.82rem; font-weight:850; text-transform:uppercase; letter-spacing:.04em; }
+  .diff-btn:hover:not(:disabled) { border-color:#777; }
+  .diff-btn:disabled { cursor:not-allowed; opacity:.48; box-shadow:none; }
+  .level-symbol { font-size:1.1rem; }
+  .level-lock { font-size:.8rem; }
+  .diff-btn.active { background:var(--red); color:white; border-color:var(--red); box-shadow:4px 4px 0 #6c001a; }
+  .primary { border:0; border-radius:2px; color:#fff; padding:13px 20px; font-weight:900; text-transform:uppercase; letter-spacing:.035em; background:var(--red); box-shadow:4px 4px 0 #6c001a; }
+  .primary:hover { background:var(--red-soft); }
+  .primary:disabled { opacity:.6; cursor:wait; }
+  .stats { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; margin:22px 0; color:#aaa; }
+  .stat { background:#222; border-left:3px solid #484848; padding:13px 15px; font-size:.72rem; font-weight:850; text-transform:uppercase; letter-spacing:.11em; }
+  .stat strong { display:block; color:#f5f5f5; font-size:clamp(1.35rem,2vw,1.8rem); line-height:1.2; margin-top:3px; letter-spacing:-.04em; font-variant-numeric:tabular-nums; }
+  .stat.timer.urgent { border-color:var(--red); }
+  .stat.timer.urgent strong { color:var(--red); }
+  .board { display:grid; gap:10px; }
+  .card { position:relative; appearance:none; border:1px solid #393939; border-radius:2px; min-width:0; min-height:clamp(60px,10vw,150px); aspect-ratio:1/1; display:grid; place-items:center; font-size:clamp(1.6rem,4.5vw,3rem); font-weight:900; color:var(--red); background:linear-gradient(145deg,#222,#141414); box-shadow:none; overflow:hidden; }
+  .card.hidden::before { content:""; width:57%; height:57%; border:1px solid #52202a; position:absolute; transform:rotate(45deg); pointer-events:none; }
+  .card .question { position:relative; z-index:1; font-size:clamp(1.5rem,4vw,2.2rem); }
+  .card.hidden:hover:not(:disabled) { border-color:#8a1b32; background:#24171a; transform:translateY(-2px); }
+  .card.face-up,.card.matched { background:linear-gradient(145deg,#43121a,#1a1515); border:2px solid #ffb23f; color:#fff; }
+  .card:disabled { cursor:default; }
+  .message { min-height:26px; margin:17px 0 0; text-align:center; color:#aaa; font-weight:650; }
+  .message.success { color:#ffc45c; }
+  .message.error { color:#ff5a75; }
+  .side-panel { padding:22px; }
+  .side-heading { margin:0; display:flex; align-items:center; justify-content:space-between; gap:8px; font-size:1.02rem; text-transform:uppercase; letter-spacing:-.02em; }
+  .side-heading > span { border-left:4px solid var(--red); padding-left:10px; }
+  .muted { color:#aaa; font-size:.85rem; line-height:1.55; }
+  .leaderboard { margin-top:14px; }
+  .leader-row { display:grid; grid-template-columns:28px minmax(0,1fr) auto; gap:8px; align-items:center; padding:12px 0; border-bottom:1px solid #333; font-size:.86rem; }
+  .leader-row:last-child { border-bottom:0; }
+  .rank { display:grid; place-items:center; width:26px; height:26px; border-radius:2px; background:#2a1118; color:var(--red); font-weight:900; }
+  .leader-name { font-weight:800; overflow-wrap:anywhere; }
+  .leader-meta { color:#999; font-size:.76rem; margin-top:3px; }
+  .leader-score { text-align:right; font-weight:900; white-space:nowrap; }
+  .empty { padding:24px 4px; color:#999; font-size:.87rem; line-height:1.55; text-align:center; }
+  .refresh { border:1px solid #414141; background:#222; border-radius:2px; padding:7px 10px; color:#fff; }
+  .footer-note { margin:18px 0 0; color:#777; font-size:.78rem; text-align:center; letter-spacing:.04em; }
+  .icon-btn { display:inline-grid; place-items:center; min-width:47px; min-height:47px; border:1px solid #5a3035; border-radius:3px; color:#fff; background:linear-gradient(145deg,#321116,#171010); font-size:1.35rem; box-shadow:3px 3px 0 #5f0017; }
+  .icon-btn:hover { border-color:var(--red); background:#351017; }
+  .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+  [hidden] { display:none !important; }
+  .modal-backdrop { position:fixed; inset:0; z-index:50; display:flex; align-items:center; justify-content:center; padding:22px; background:rgba(3,3,5,.82); backdrop-filter:blur(9px); overflow-y:auto; }
+  .modal-card { position:relative; width:min(560px,100%); padding:24px; border:1px solid #69303a; background:radial-gradient(ellipse at 50% 0%,#3a1119 0,#181112 58%); box-shadow:0 30px 100px #000b; text-align:center; animation:modal-in .22s ease-out; }
+  @keyframes modal-in { from { opacity:0; transform:translateY(12px) scale(.985); } to { opacity:1; transform:translateY(0) scale(1); } }
+  .modal-close { position:absolute; z-index:2; right:12px; top:12px; width:38px; height:38px; display:grid; place-items:center; border:1px solid #644047; color:#fff; background:#130c0d; font-size:1.45rem; }
+  .modal-kicker { margin:4px 0 10px; color:#ff667d; font-size:.72rem; font-weight:950; letter-spacing:.2em; text-transform:uppercase; }
+  .modal-card h2 { margin:0; font-size:clamp(1.75rem,5vw,2.5rem); line-height:1; letter-spacing:-.055em; }
+  .modal-copy { color:#c4b9ba; line-height:1.55; margin:13px auto 18px; max-width:420px; }
+  .stage-art { display:block; width:100%; height:218px; margin:0 auto 20px; object-fit:cover; object-position:center 58%; border:1px solid #6d272f; }
+  .unlock-pill { display:inline-flex; align-items:center; gap:8px; margin:0 auto 18px; padding:9px 13px; border:1px solid #8e4028; color:#ffd99b; background:#2a1714; font-size:.78rem; font-weight:900; letter-spacing:.07em; text-transform:uppercase; }
+  .modal-actions { display:flex; justify-content:center; gap:10px; flex-wrap:wrap; }
+  .secondary { border:1px solid #584448; border-radius:2px; color:#eee; background:#201718; padding:12px 16px; font-weight:800; }
+  .modal-card .primary { width:auto; }
+  .modal-card.leader-modal { text-align:left; }
+  .leader-modal-head { display:flex; align-items:center; justify-content:space-between; gap:10px; padding-right:42px; }
+  .leader-modal-head h2 { font-size:1.75rem; }
+  .leader-modal .muted { margin:12px 0; }
+  .leader-modal .leaderboard { max-height:min(52vh,460px); overflow:auto; padding-right:5px; }
+  .leader-modal .refresh { font-size:1.1rem; padding:7px 11px; }
+  body.modal-open { overflow:hidden; }
+  @media (max-width:900px) { .hero { align-items:flex-start; } .hero-note { max-width:260px; } }
+  @media (max-width:600px) { .page { width:calc(100% - 20px); margin:14px auto 26px; } .topline { margin-bottom:20px; padding-bottom:15px; gap:14px; } .brand { gap:10px; } .tedx-lockup { width:112px; max-width:30vw; } .brand-divider { height:38px; } .game-brand strong { font-size:1rem; } .game-brand small { font-size:.5rem; letter-spacing:.11em; } .top-actions { width:100%; justify-content:space-between; gap:10px; } .player { flex:1; min-width:0; } .player input { width:auto; min-width:0; flex:1; } .hero { flex-direction:column; gap:14px; margin:22px 0; } .hero h1 { font-size:clamp(3rem,15vw,4.8rem); } .hero-note { max-width:100%; font-size:.9rem; } .game-panel { padding:13px; } .controls { align-items:stretch; } .difficulty { width:100%; } .diff-btn { flex:1; padding:10px 7px; font-size:.7rem; gap:4px; } .primary { width:100%; } .stats { gap:6px; margin:17px 0; } .stat { padding:10px 8px; font-size:.62rem; letter-spacing:.06em; } .stat strong { font-size:1.22rem; } .board { gap:6px; } .card { min-height:0; border-radius:2px; } .modal-backdrop { padding:10px; } .modal-card { padding:20px 15px; } .stage-art { height:175px; } .modal-actions { flex-direction:column; } .modal-actions button { width:100%; } }
+</style>
+</head>
+<body>
+  <main class="page">
+    <header class="topline">
+      <a class="brand" href="https://tedxnitksurathkal.netlify.app" target="_blank" rel="noopener noreferrer" aria-label="Visit TEDx NITK Surathkal website">
+        <span class="tedx-lockup" aria-hidden="true">
+          <svg viewBox="0 0 310 76" role="img" aria-label="TEDx NITK Surathkal wordmark">
+            <text x="1" y="49" font-family="Arial, Helvetica, sans-serif" font-size="54" font-weight="900" letter-spacing="-4" fill="#ef0035">TED</text>
+            <text x="116" y="49" font-family="Arial, Helvetica, sans-serif" font-size="54" font-weight="500" letter-spacing="-3" fill="#f5f5f5">x</text>
+            <text x="164" y="32" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="900" letter-spacing="1.2" fill="#f5f5f5">NITK</text>
+            <text x="164" y="53" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="800" letter-spacing="1.3" fill="#a9a9a9">SURATHKAL</text>
+            <path d="M164 61 H300" stroke="#ef0035" stroke-width="3" />
+          </svg>
+        </span>
+        <span class="brand-divider" aria-hidden="true"></span>
+        <span class="game-brand"><strong>MINDSTAGE</strong><small>TEDx MEMORY CHALLENGE</small></span>
+      </a>
+      <div class="top-actions"><button id="openLeaderboard" class="icon-btn" type="button" title="Open leaderboard" aria-label="Open leaderboard">🏆<span class="sr-only">Leaderboard</span></button><label class="player">Player <input id="playerName" maxlength="100" value="Player" aria-label="Player name"></label></div>
+    </header>
+    <section class="hero" aria-label="Game introduction">
+      <div><p class="eyebrow">A LITTLE CHALLENGE FOR YOUR MIND</p><h1>THINK IN <span>PAIRS.</span></h1></div>
+      <p class="hero-note">Flip the cards. Trust your memory. Find every match before the clock runs out.</p>
+    </section>
+    <div class="layout">
+      <section class="game-panel" aria-label="Memory match game">
+        <div class="controls">
+          <div class="difficulty" role="group" aria-label="Select difficulty">
+            <button class="diff-btn active" data-difficulty="easy" type="button">Easy</button>
+            <button class="diff-btn locked" data-difficulty="medium" type="button" disabled>Medium 🔒</button>
+            <button class="diff-btn locked" data-difficulty="hard" type="button" disabled>Hard 🔒</button>
+          </div>
+          <button id="newGame" class="primary" type="button">New Game ↻</button>
+        </div>
+        <div class="stats" aria-live="polite">
+          <div class="stat">Moves<strong id="moves">0</strong></div>
+          <div class="stat">Pairs<strong id="pairs">0/8</strong></div>
+          <div class="stat timer" id="timerStat">Time<strong id="time">5:00</strong></div>
+        </div>
+        <div id="board" class="board" aria-label="Game cards"></div>
+        <div id="message" class="message" aria-live="polite">Choose two stage symbols to find a matching pair.</div>
+      </section>
+    </div>
+    <p class="footer-note">Match every pair before the 5-minute timer runs out · Complete each level to unlock the next.</p>
+  </main>
+
+  <div id="leaderboardModal" class="modal-backdrop" hidden role="dialog" aria-modal="true" aria-labelledby="leaderboardTitle">
+    <section class="modal-card leader-modal">
+      <button class="modal-close" id="closeLeaderboard" type="button" aria-label="Close leaderboard">×</button>
+      <div class="leader-modal-head"><h2 id="leaderboardTitle">🏆 Leaderboard</h2><button id="refreshLeaderboard" class="refresh" type="button" title="Refresh leaderboard" aria-label="Refresh leaderboard">↻</button></div>
+      <p class="muted">Completed games ranked by fewest moves, then fastest time.</p>
+      <div id="leaderboard" class="leaderboard"><div class="empty">Click the trophy to load the latest scores.</div></div>
+    </section>
+  </div>
+
+  <div id="levelCompleteModal" class="modal-backdrop" hidden role="dialog" aria-modal="true" aria-labelledby="levelCompleteTitle">
+    <section class="modal-card level-modal">
+      <button class="modal-close" id="closeLevelComplete" type="button" aria-label="Close level completion popup">×</button>
+      <img class="stage-art" src="/assets/stage-celebration.png" alt="A microphone on a red stage beneath a spotlight and theater curtains">
+      <p class="modal-kicker">LEVEL COMPLETE · TEDx MINDSTAGE</p>
+      <h2 id="levelCompleteTitle">You owned the stage!</h2>
+      <p id="levelCompleteCopy" class="modal-copy">You matched every symbol in Easy. The spotlight is yours.</p>
+      <div class="unlock-pill">🎭 Medium level unlocked</div>
+      <div class="modal-actions"><button id="continueMedium" class="primary" type="button">Take the next stage →</button><button id="stayOnStage" class="secondary" type="button">Stay here</button></div>
+    </section>
+  </div>
+<script>
+(() => {
+  const $ = (id) => document.getElementById(id);
+  const symbols = {
+    apple:'🎤', banana:'🎭', grapes:'🎟️', orange:'💡', strawberry:'🎬',
+    watermelon:'🎧', cherry:'👏', kiwi:'🗣️', mango:'🏆', pineapple:'⭐',
+    pear:'📣', peach:'🎹', lemon:'🎶', blueberry:'🧠', coconut:'🔦'
+  };
+  const levelIcons = { easy:'🎤', medium:'🎭', hard:'✨' };
+  const levelNames = { easy:'Easy', medium:'Medium', hard:'Hard' };
+  const state = {
+    game: null, difficulty: 'easy', busy: false, seconds: 300, timer: null,
+    gamePlayerName: 'Player', completionHandled: null
+  };
+
+  function escapeHTML(value) {
+    return String(value).replace(/[&<>"']/g, (ch) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+  }
+  async function api(path, options = {}) {
+    const response = await fetch(path, {
+      ...options,
+      headers: { 'Content-Type': 'application/json', ...(options.headers || {}) }
+    });
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(data.error || `Request failed (${response.status})`);
+    return data;
+  }
+  function message(text, kind = '') {
+    const el = $('message'); el.textContent = text; el.className = `message ${kind}`;
+  }
+  function formatTime(total) {
+    const sec = Math.max(0, Number(total) || 0);
+    return `${Math.floor(sec / 60)}:${String(sec % 60).padStart(2, '0')}`;
+  }
+  function normalizedName(name) { return String(name || '').trim() || 'Player'; }
+  function progressKey(name) {
+    return `tedxMindStage.progress.${normalizedName(name).toLocaleLowerCase()}`;
+  }
+  function getProgress(name = $('playerName').value) {
+    const defaults = { easy: true, medium: false, hard: false };
+    try {
+      const saved = JSON.parse(localStorage.getItem(progressKey(name)) || '{}');
+      const medium = Boolean(saved.medium);
+      return { easy: true, medium, hard: medium && Boolean(saved.hard) };
+    } catch (_) { return defaults; }
+  }
+  function saveLevelCompletion(name, difficulty) {
+    const progress = getProgress(name);
+    if (difficulty === 'easy') progress.medium = true;
+    if (difficulty === 'medium') { progress.medium = true; progress.hard = true; }
+    progress.easy = true;
+    try { localStorage.setItem(progressKey(name), JSON.stringify(progress)); }
+    catch (_) { /* The current game still works if browser storage is unavailable. */ }
+    updateDifficultyButtons();
+  }
+  function updateDifficultyButtons() {
+    const progress = getProgress();
+    document.querySelectorAll('[data-difficulty]').forEach((button) => {
+      const difficulty = button.dataset.difficulty;
+      const unlocked = Boolean(progress[difficulty]);
+      button.disabled = !unlocked;
+      button.classList.toggle('locked', !unlocked);
+      button.classList.toggle('unlocked', unlocked);
+      button.classList.toggle('active', difficulty === state.difficulty && unlocked);
+      button.innerHTML = `<span class="level-symbol">${levelIcons[difficulty]}</span><span>${levelNames[difficulty]}</span>${unlocked ? '' : '<span class="level-lock" aria-label="Locked">🔒</span>'}`;
+      button.title = unlocked ? `Play ${levelNames[difficulty]}` : `Complete ${difficulty === 'medium' ? 'Easy' : 'Medium'} to unlock this level`;
+      button.setAttribute('aria-pressed', String(difficulty === state.difficulty && unlocked));
+    });
+  }
+  function updateStats() {
+    if (!state.game) return;
+    $('moves').textContent = state.game.moves;
+    $('pairs').textContent = `${state.game.pairs_found}/${state.game.total_pairs}`;
+    $('time').textContent = formatTime(state.seconds);
+    $('timerStat').classList.toggle('urgent', state.seconds <= 30 && state.game.status === 'in_progress');
+  }
+  function drawBoard() {
+    const board = $('board');
+    if (!state.game) { board.innerHTML = ''; return; }
+    board.style.gridTemplateColumns = `repeat(${state.game.columns}, minmax(0, 1fr))`;
+    board.innerHTML = state.game.cards.map((card) => {
+      const show = card.revealed || card.matched;
+      const label = show ? (symbols[card.value] || '🎤') : '?';
+      const classes = `card ${show ? 'face-up' : 'hidden'} ${card.matched ? 'matched' : ''}`;
+      const disabled = state.busy || state.game.status !== 'in_progress' || show ? 'disabled' : '';
+      return `<button type="button" class="${classes}" data-position="${card.position}" ${disabled} aria-label="${show ? 'Revealed stage symbol' : 'Hidden card'}">${show ? label : '<span class="question">?</span>'}</button>`;
+    }).join('');
+    board.querySelectorAll('[data-position]').forEach((button) => {
+      button.addEventListener('click', () => flipCard(Number(button.dataset.position)));
+    });
+  }
+  function render() { updateStats(); drawBoard(); }
+  function stopTimer() {
+    if (state.timer) clearInterval(state.timer);
+    state.timer = null;
+  }
+  function openModal(id) {
+    $(id).hidden = false;
+    document.body.classList.add('modal-open');
+    const closeButton = $(id).querySelector('.modal-close');
+    if (closeButton) closeButton.focus();
+  }
+  function closeModal(id) {
+    $(id).hidden = true;
+    if ($('leaderboardModal').hidden && $('levelCompleteModal').hidden) {
+      document.body.classList.remove('modal-open');
+    }
+  }
+  async function fetchGame() {
+    if (!state.game) return;
+    const latest = await api(`/games/${state.game.id}`);
+    state.game = latest;
+    state.seconds = latest.time_left_seconds;
+    render();
+    if (latest.status === 'completed') {
+      stopTimer();
+      if (state.completionHandled !== latest.id) {
+        state.completionHandled = latest.id;
+        const completedLevel = String(latest.difficulty || state.difficulty).toLowerCase();
+        saveLevelCompletion(state.gamePlayerName, completedLevel);
+        if (completedLevel === 'easy') {
+          $('levelCompleteCopy').textContent = `Brilliant, ${state.gamePlayerName}! You matched every stage symbol in Easy. Medium is now unlocked — keep building your momentum.`;
+          openModal('levelCompleteModal');
+          message('🎉 Easy complete! Medium is unlocked. Take a bow!', 'success');
+        } else if (completedLevel === 'medium') {
+          message('👏 Excellent run! Hard is now unlocked. The final stage awaits.', 'success');
+        } else {
+          message('🌟 Curtain call! You completed every difficulty. You own the MindStage.', 'success');
+        }
+      }
+    } else if (latest.status === 'expired') {
+      stopTimer(); message('⏰ Time is up! Start a new game to try again.', 'error');
+    }
+    return latest;
+  }
+  function startTimer() {
+    stopTimer();
+    state.timer = setInterval(async () => {
+      if (!state.game || state.game.status !== 'in_progress') { stopTimer(); return; }
+      state.seconds = Math.max(0, state.seconds - 1); updateStats();
+      if (state.seconds === 0) {
+        stopTimer();
+        try { await fetchGame(); } catch (err) { message(err.message, 'error'); }
+      }
+    }, 1000);
+  }
+  async function startGame(difficulty = state.difficulty) {
+    const playerName = normalizedName($('playerName').value);
+    const progress = getProgress(playerName);
+    if (!progress[difficulty]) {
+      const prerequisite = difficulty === 'hard' ? 'Medium' : 'Easy';
+      message(`🔒 Complete ${prerequisite} first to unlock ${levelNames[difficulty]}.`, 'error');
+      updateDifficultyButtons();
+      return;
+    }
+    state.busy = true; stopTimer(); state.difficulty = difficulty;
+    state.gamePlayerName = playerName; state.completionHandled = null;
+    updateDifficultyButtons();
+    $('newGame').disabled = true; message('Preparing the stage…');
+    try {
+      const game = await api('/games', { method:'POST', body:JSON.stringify({ player_name:playerName, difficulty }) });
+      state.game = game; state.seconds = game.time_left_seconds; state.busy = false;
+      render(); message('Choose two stage symbols to find a matching pair.'); startTimer();
+    } catch (err) {
+      state.busy = false; message(err.message, 'error');
+    } finally { $('newGame').disabled = false; drawBoard(); }
+  }
+  async function flipCard(position) {
+    if (!state.game || state.busy || state.game.status !== 'in_progress') return;
+    const card = state.game.cards.find((c) => c.position === position);
+    if (!card || card.matched || card.revealed) return;
+    state.busy = true; drawBoard();
+    try {
+      const result = await api(`/games/${state.game.id}/flip`, { method:'POST', body:JSON.stringify({ position }) });
+      await fetchGame();
+      if (result.result === 'mismatch' && state.game.status === 'in_progress') {
+        message('Not a match — remember those stage symbols!');
+        await new Promise((resolve) => setTimeout(resolve, 850));
+        await api(`/games/${state.game.id}/resolve`, { method:'POST', body:'{}' });
+        await fetchGame();
+      } else if (result.result === 'match' && state.game.status === 'in_progress') {
+        message('Nice match! Keep the momentum going.');
+      } else if (result.result !== 'match' && state.game.status === 'in_progress') {
+        message('Remember this stage symbol and find its pair.');
+      }
+    } catch (err) {
+      try { await fetchGame(); } catch (_) {}
+      message(err.message, 'error');
+    } finally {
+      state.busy = false; render();
+      if (state.game && state.game.status === 'in_progress') startTimer();
+    }
+  }
+  async function loadLeaderboard() {
+    const box = $('leaderboard');
+    box.innerHTML = '<div class="empty">Loading scores…</div>';
+    try {
+      const data = await api('/leaderboard?limit=10');
+      const entries = data.leaderboard || [];
+      if (!entries.length) { box.innerHTML = '<div class="empty">No completed games yet. Finish a game to set the first score.</div>'; return; }
+      box.innerHTML = entries.map((entry) => `
+        <div class="leader-row">
+          <div class="rank">${entry.rank}</div>
+          <div><div class="leader-name">${escapeHTML(entry.player_name)}</div><div class="leader-meta">${escapeHTML(entry.difficulty)} · ${formatTime(entry.elapsed_seconds)}</div></div>
+          <div class="leader-score">${entry.moves}<div class="leader-meta">moves</div></div>
+        </div>`).join('');
+    } catch (err) { box.innerHTML = `<div class="empty">Could not load leaderboard: ${escapeHTML(err.message)}</div>`; }
+  }
+
+  document.querySelectorAll('[data-difficulty]').forEach((button) => button.addEventListener('click', () => startGame(button.dataset.difficulty)));
+  $('newGame').addEventListener('click', () => {
+    const progress = getProgress();
+    startGame(progress[state.difficulty] ? state.difficulty : 'easy');
+  });
+  $('playerName').addEventListener('input', updateDifficultyButtons);
+  $('openLeaderboard').addEventListener('click', async () => {
+    openModal('leaderboardModal');
+    await loadLeaderboard();
+  });
+  $('closeLeaderboard').addEventListener('click', () => closeModal('leaderboardModal'));
+  $('refreshLeaderboard').addEventListener('click', loadLeaderboard);
+  $('closeLevelComplete').addEventListener('click', () => closeModal('levelCompleteModal'));
+  $('stayOnStage').addEventListener('click', () => closeModal('levelCompleteModal'));
+  $('continueMedium').addEventListener('click', async () => {
+    closeModal('levelCompleteModal');
+    await startGame('medium');
+  });
+  document.querySelectorAll('.modal-backdrop').forEach((backdrop) => backdrop.addEventListener('click', (event) => {
+    if (event.target === backdrop) closeModal(backdrop.id);
+  }));
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      if (!$('levelCompleteModal').hidden) closeModal('levelCompleteModal');
+      if (!$('leaderboardModal').hidden) closeModal('leaderboardModal');
+    }
+  });
+  updateDifficultyButtons();
+  startGame('easy');
+})();
+</script>
+</body>
+</html>
